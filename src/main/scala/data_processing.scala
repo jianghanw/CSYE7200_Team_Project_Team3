@@ -5,6 +5,10 @@ import org.apache.spark.sql.SparkSession
 
 object data_processing extends App {
   System.setProperty("hadoop.home.dir", "C:/Program Files/hadoop-3.2.0")
+
+  case class Match(match_id: Int,duration:Int,radiant_win:Int)
+  case class Player(match_id: Int,hero_id:Int,player_slot:Int,gold_per_min:Int,xp_per_min:Int,KDA:Double)
+
   val spark: SparkSession = SparkSession
     .builder()
     .appName("ProcessData")
@@ -17,9 +21,11 @@ object data_processing extends App {
     .load("src/main/resources/match.csv")
 
 
-  val data = matchInfo.select("match_id","duration","radiant_win").withColumn("radiant_win", col("radiant_win").cast("int"))
+  import spark.implicits._
 
-  data.show()
+  val data = matchInfo.select("match_id","duration","radiant_win").withColumn("radiant_win", col("radiant_win").cast("int"))
+  val dataset = data.as[Match]
+  dataset.show()
 
   val playerInfo = spark.read.format("csv")
     .option("header", "true")
@@ -29,5 +35,6 @@ object data_processing extends App {
   val playerData = playerInfo.select("match_id","hero_id","player_slot","gold_per_min","xp_per_min","kills","deaths","assists")
   val kdaCal = (col("kills")+col("assists"))/col("deaths")
   val kdaCom = playerData.withColumn("KDA",bround(kdaCal,2)).drop("kills","deaths","assists")
-  kdaCom.show()
+  val playerDS = kdaCom.as[Player]
+  playerDS.show()
 }
