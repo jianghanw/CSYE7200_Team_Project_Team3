@@ -1,9 +1,12 @@
 package edu.neu.csye7200
 
+
 import edu.neu.csye7200.dataprocess.spark.sqlContext
-import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.functions.{bround, col, count, sum, when}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{Column, Dataset, SparkSession}
+
+
 
 object dataprocess extends App {
   val spark: SparkSession = SparkSession
@@ -68,16 +71,28 @@ object dataprocess extends App {
                                  player_slot: Int,
                                )
 
-  val result = matches.join(players, "match_id").as[resultFormat]
-  result.show()
+  val result = matches.join(players, "match_id")
 
-  result.createOrReplaceGlobalTempView("result")
+  val tmpDF = result.groupBy("hero_id").count()
+
+  val tmpDF1 = result.groupBy("hero_id").agg(sum(when($"radiant_win"===true,1).otherwise(0)).as("num_wins"))
+
+  val mergeDF = tmpDF.join(tmpDF1,"hero_id")
+  val win_R_cal = bround(col("num_wins")/col("count"),3)
+  val win_D_cal = bround((col("count")-col("num_wins"))/col("count"),3)
+
+  val winRateDF = mergeDF.withColumn("win_R",win_R_cal).withColumn("win_D",win_D_cal).drop("count","num_wins")
+
+  //result.createOrReplaceGlobalTempView("result")
 
   final case class winRateFormat(
                                  hero_id: Int,
                                  win_R: Double,
                                  win_D: Double,
                                )
+
+  val winRateDS = winRateDF.as[winRateFormat]
+  winRateDS.show()
 }
 
 
