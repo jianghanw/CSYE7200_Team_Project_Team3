@@ -2,13 +2,14 @@ package edu.neu.csye7200
 
 
 import edu.neu.csye7200.dataprocess.spark.sqlContext
-import org.apache.spark.sql.functions.{bround, col, count, sum, when}
+import org.apache.spark.sql.functions.{bround, col, collect_list, sum, when}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{Column, Dataset, SparkSession}
 
 
 
-object dataprocess extends App {
+object dataprocess extends App{
+  System.setProperty("hadoop.home.dir", "C:/Program Files/hadoop-3.2.0")
   val spark: SparkSession = SparkSession
     .builder()
     .appName("ProcessData")
@@ -71,7 +72,10 @@ object dataprocess extends App {
                                  player_slot: Int,
                                )
 
-  val result = matches.join(players, "match_id")
+  val result = matches.join(players, "match_id").withColumn("radiant_win",col("radiant_win").cast("int"))
+  result.show()
+
+
 
   val tmpDF = result.groupBy("hero_id").count()
 
@@ -93,6 +97,15 @@ object dataprocess extends App {
 
   val winRateDS = winRateDF.as[winRateFormat]
   winRateDS.show()
+
+
+
+  val matrix = Array.ofDim[Int](113,113)
+
+
+
+
+
 }
 
 
