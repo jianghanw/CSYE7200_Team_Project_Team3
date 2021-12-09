@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1639020160359,"sparkVersion":"3.1.1","uid":"strIdx_89c193c2b0a7","paramMap":{"outputCol":"label","inputCol":"radiant_win"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"strIdx_89c193c2b0a7__output","handleInvalid":"error"}}
