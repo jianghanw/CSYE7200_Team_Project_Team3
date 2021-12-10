@@ -4,7 +4,7 @@ import org.apache.spark.sql.SparkSession
 
 
 object data_processing extends App {
-  System.setProperty("hadoop.home.dir", "C:/Program Files/hadoop-3.2.0")
+
 
   case class Match(match_id: Int,duration:Int,radiant_win:Int)
   case class Player(match_id: Int,hero_id:Int,player_slot:Int,gold_per_min:Int,xp_per_min:Int,KDA:Double)

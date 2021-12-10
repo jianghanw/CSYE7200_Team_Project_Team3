@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dota 2 Win Prediction-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Dota 2 Win Prediction-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.Dota 2 Win Prediction.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.Dota 2 Win Prediction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayFramework---UI/PlayFramework---UI.iml" filepath="$PROJECT_DIR$/PlayFramework---UI/PlayFramework---UI.iml" />
     </modules>
   </component>
 </project>

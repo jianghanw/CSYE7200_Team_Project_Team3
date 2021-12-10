@@ -11,6 +11,7 @@ import org.apache.spark.sql.{Column, DataFrame, Dataset, SparkSession}
 import scala.language.postfixOps
 
 object DataProcess{
+  System.setProperty("hadoop.home.dir", "C:/Program Files/hadoop-3.2.0")
 
   val spark: SparkSession = SparkSession
     .builder()
