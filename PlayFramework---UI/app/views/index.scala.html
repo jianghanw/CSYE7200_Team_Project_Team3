@@ -125,12 +125,10 @@
           <option id="105">Techies</option>
           <option id="106">Ember Spirit</option>
           <option id="107">Earth Spirit</option>
-          <option id="108">Underlord</option>
           <option id="109">Terrorblade</option>
           <option id="110">Phoenix</option>
           <option id="111">Oracle</option>
           <option id="112">Winter Wyvern</option>
-          <option id="113">Arc Warden</option>
         </select>
   </div>
     <br><br><br>
@@ -175,16 +173,18 @@
 
 
     $("#submit").click(function (){
-        let res = idLst.toString();
-         fetch("/teamComp/" + res).then((response) => {
-                console.log(response)
-                return response.text()
-        }).then((responseTxt) => {
-            console.log(responseTxt)
-            const ui = document.getElementById("res");
-            ui.innerHTML = responseTxt
-        })
-
+        if(idLst.length<10) alert("There must be 5 heroes on each side");
+        else{
+                let res = idLst.toString();
+                fetch("/teamComp/" + res).then((response) => {
+                    console.log(response)
+                    return response.text()
+                }).then((responseTxt) => {
+                console.log(responseTxt)
+                const ui = document.getElementById("res");
+                 ui.innerHTML = responseTxt
+                })
+        }
     })
 
 

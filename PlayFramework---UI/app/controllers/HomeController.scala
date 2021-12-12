@@ -28,8 +28,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     val team_Radiant=Array.ofDim[Int](5)
     val team_Dire=Array.ofDim[Int](5)
     for(i<-0 to 4) {
-      team_Radiant(i) = teams(i)
-      team_Dire(i) = teams(i + 5)
+        team_Radiant(i) = teams(i)
+        team_Dire(i) = teams(i + 5)
     }
     Ok(Predict.predict(team_Radiant,team_Dire))
 
