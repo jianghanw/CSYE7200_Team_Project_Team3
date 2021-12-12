@@ -11,7 +11,7 @@ Dota 2 Win Prediction
 
 ## Project proposal: 
 
-### some of the background: 
+### Some of the background: 
 e-sports has developed rapidly these years, millions of people watching the competition. It is not unusual to see many websites let people to simulate either
 the pre-game match information or post-game match information, the system will give a most likely result, which called the prediction.
 
